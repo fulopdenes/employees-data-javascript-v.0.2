@@ -21,7 +21,10 @@ employeesRouter.use("/:id", async (req, res, next) => {
 });
 
 employeesRouter.get("/", async (req, res) => {
-  const employees = await EmployeeModel.find().sort({ created: "desc" });
+  const sortObject = {};
+  sortObject[req.query.sort] = req.query.by;
+
+  const employees = await EmployeeModel.find().sort(sortObject);
   return res.json(employees);
 });
 

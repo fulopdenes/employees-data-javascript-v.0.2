@@ -9,16 +9,62 @@ import TableRow from "@mui/material/TableRow";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Paper from "@mui/material/Paper";
 
-const EmployeeTable = ({ employees, onDelete }) => (
+const EmployeeTable = ({
+  sortStatus,
+  setSortStatus,
+  employees,
+  onDelete,
+  setSelectedColumnStatus,
+  sortByColumn,
+}) => (
   <TableContainer component={Paper}>
     <Table>
       <TableHead>
         <TableRow>
-          <TableCell align="left">Name</TableCell>
+          <TableCell
+            onClick={(e) =>
+              sortByColumn(
+                e.target.id,
+                setSelectedColumnStatus,
+                sortStatus,
+                setSortStatus
+              )
+            }
+            id="name"
+            align="left"
+          >
+            Name
+          </TableCell>
           {/* <TableCell align="left">Middle Name</TableCell>
           <TableCell align="left">Last Name</TableCell> */}
-          <TableCell align="left">Level</TableCell>
-          <TableCell align="left">Position</TableCell>
+          <TableCell
+            id="level"
+            onClick={(e) =>
+              sortByColumn(
+                e.target.id,
+                setSelectedColumnStatus,
+                sortStatus,
+                setSortStatus
+              )
+            }
+            align="left"
+          >
+            Level
+          </TableCell>
+          <TableCell
+            onClick={(e) =>
+              sortByColumn(
+                e.target.id,
+                setSelectedColumnStatus,
+                sortStatus,
+                setSortStatus
+              )
+            }
+            id="position"
+            align="left"
+          >
+            Position
+          </TableCell>
           <TableCell align="left"></TableCell>
         </TableRow>
       </TableHead>
