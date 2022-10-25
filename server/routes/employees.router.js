@@ -2,7 +2,10 @@ const { Router } = require("express");
 const EmployeeModel = require("../db/employee.model");
 
 const employeesRouter = new Router();
-
+employeesRouter.get("/valami", async (req, res) => {
+  console.log("sajt");
+  res.send("ok");
+});
 employeesRouter.use("/:id", async (req, res, next) => {
   let employee = null;
 
