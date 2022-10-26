@@ -45,6 +45,7 @@ const EmployeeList = () => {
 
     console.log(personName);
 
+    //! ez egy módja, hogy kijavítsuk selected Listát <-> fordítva is lehet
     // const map1 = personName.map((x) => {
     //   if (x === "startingDate") {
     //     return "Starting Date";
@@ -98,23 +99,7 @@ const EmployeeList = () => {
       }
     });
     console.log(map1);
-    console.log(map1.join("&"));
-
-    // const keyPairList = getValue(personName);
-    // function getValue(personName) {
-    //   const tableCellList = ["Name", "Level", "Position"];
-    //   //ha a (personName[i].lowercase()).includes()
-
-    //   const map1 = personName.filter((x) => x.includes("name"));
-    //   console.log(map1);
-    // }
-    // const hello = (personName) => console.log(personName);
-    // personName.map((items) => {
-    //   console.log(items);
-    //   return items;
-    // });
-
-    // console.log(hello());
+    console.log(map1.join("&")); //! kész a query.
 
     const malacka = "sort=" + columnName + "&" + "by=" + ascOrDesc;
     console.log(malacka);
