@@ -30,8 +30,11 @@ const EmployeeTable = ({
   onDelete,
   setSelectedColumnStatus,
   sortByColumn,
+  sortColumn,
+  setSortColumn,
   personName,
   setPersonName,
+  setSearchInputHandler,
 }) => {
   const optionListValues = (column) => {
     column.shift();
@@ -41,10 +44,44 @@ const EmployeeTable = ({
   };
 
   const [age, setAge] = useState("");
-  const [column, setColumn] = useState(
-    optionListValues(Object.keys(employees[0]))
-  ); //! we assume that all "documents" have the same "keys", so we take the structure of the document with index 0 as the starting point!
-
+  const [column, setColumn] = useState([
+    "Starting Date",
+    "First Name",
+    "Middle Name",
+    "Last Name",
+    "Current Salary",
+    "Desired Salary",
+    "Level",
+    "Position",
+    "Favorite Color",
+    "Boss",
+  ]); //! we assume that all "documents" have the same "keys", so we take the structure of the document with index 0 as the starting point!
+  // const map1 = personName.map((x) => {
+  //   if (x === "startingDate") {
+  //     return "Starting Date";
+  //   } else if (x === "firstName") {
+  //     return "First Name";
+  //   } else if (x === "middleName") {
+  //     return "Middle Name";
+  //   } else if (x === "lastName") {
+  //     return "Last Name";
+  //   } else if (x === "currentSalary") {
+  //     return "Current Salary";
+  //   } else if (x === "desiredSalary") {
+  //     return "Desired Salary";
+  //   } else if (x === "level") {
+  //     return "Level";
+  //   } else if (x === "position") {
+  //     return "Position";
+  //   } else if (x === "favColor") {
+  //     return "Favorite Color";
+  //   } else if (x === "boss") {
+  //     return "Boss";
+  //   } else {
+  //     return "";
+  //   }
+  // });
+  // console.log(map1);
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
   const MenuProps = {
@@ -112,6 +149,7 @@ const EmployeeTable = ({
                   id="outlined-basic"
                   label="Outlined"
                   variant="outlined"
+                  onChange={(e) => setSearchInputHandler(e.target.value)}
                   // margin="dense"
                 />
               </TableCell>
@@ -121,7 +159,7 @@ const EmployeeTable = ({
                 onClick={(e) =>
                   sortByColumn(
                     e.target.id,
-                    setSelectedColumnStatus,
+                    setSortColumn,
                     sortStatus,
                     setSortStatus
                   )
@@ -138,7 +176,7 @@ const EmployeeTable = ({
                 onClick={(e) =>
                   sortByColumn(
                     e.target.id,
-                    setSelectedColumnStatus,
+                    setSortColumn,
                     sortStatus,
                     setSortStatus
                   )
@@ -151,7 +189,7 @@ const EmployeeTable = ({
                 onClick={(e) =>
                   sortByColumn(
                     e.target.id,
-                    setSelectedColumnStatus,
+                    setSortColumn,
                     sortStatus,
                     setSortStatus
                   )
