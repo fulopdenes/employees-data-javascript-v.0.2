@@ -36,52 +36,9 @@ const EmployeeTable = ({
   setPersonName,
   setSearchInputHandler,
 }) => {
-  const optionListValues = (column) => {
-    column.shift();
-    column.pop();
-    column.pop();
-    return column;
-  };
-
   const [age, setAge] = useState("");
-  const [column, setColumn] = useState([
-    "Starting Date",
-    "First Name",
-    "Middle Name",
-    "Last Name",
-    "Current Salary",
-    "Desired Salary",
-    "Level",
-    "Position",
-    "Favorite Color",
-    "Boss",
-  ]); //! we assume that all "documents" have the same "keys", so we take the structure of the document with index 0 as the starting point!
-  // const map1 = personName.map((x) => {
-  //   if (x === "startingDate") {
-  //     return "Starting Date";
-  //   } else if (x === "firstName") {
-  //     return "First Name";
-  //   } else if (x === "middleName") {
-  //     return "Middle Name";
-  //   } else if (x === "lastName") {
-  //     return "Last Name";
-  //   } else if (x === "currentSalary") {
-  //     return "Current Salary";
-  //   } else if (x === "desiredSalary") {
-  //     return "Desired Salary";
-  //   } else if (x === "level") {
-  //     return "Level";
-  //   } else if (x === "position") {
-  //     return "Position";
-  //   } else if (x === "favColor") {
-  //     return "Favorite Color";
-  //   } else if (x === "boss") {
-  //     return "Boss";
-  //   } else {
-  //     return "";
-  //   }
-  // });
-  // console.log(map1);
+  const [column, setColumn] = useState(["Name", "Level", "Position"]);
+
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
   const MenuProps = {
@@ -93,19 +50,6 @@ const EmployeeTable = ({
     },
   };
 
-  const names = [
-    "Oliver Hansen",
-    "Van Henry",
-    "April Tucker",
-    "Ralph Hubbard",
-    "Omar Alexander",
-    "Carlos Abbott",
-    "Miriam Wagner",
-    "Bradley Wilkerson",
-    "Virginia Andrews",
-    "Kelly Snyder",
-  ];
-
   const handleChange = (event) => {
     const {
       target: { value },
@@ -114,6 +58,18 @@ const EmployeeTable = ({
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
     );
+    const map1 = value.map((x) => {
+      if (x === "Name") {
+        return "filter=name";
+      } else if (x === "Level") {
+        return "filter=level";
+      } else if (x === "Position") {
+        return "filter=position";
+      } else {
+        return "";
+      }
+    });
+    setSelectedColumnStatus(map1.join("&"));
   };
 
   return (

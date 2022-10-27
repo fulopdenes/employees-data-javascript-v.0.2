@@ -26,17 +26,26 @@ employeesRouter.use("/:id", async (req, res, next) => {
 employeesRouter.get("/", async (req, res) => {
   const sortObject = {};
   sortObject[req.query.sort] = req.query.by;
-  // const filterArray = req.query.filter;
-  // const filterInput = req.query.filterInput;
-  // const filterObject = {};
+  const filterArray = req.query.filter;
 
-  // filterArray.forEach((element) => {
-  //   filterObject[element] = filterInput;
-  // });
+  const filterInput = req.query.filterInput;
+  const filterObject = {};
+
+  if (Array.isArray(filterArray)) {
+    filterArray.forEach((element) => {
+      filterObject[element] = new RegExp(filterInput);
+    });
+    const employees = await EmployeeModel.find(filterObject).sort(sortObject);
+    console.log("yes");
+    return res.json(employees);
+  } else {
+    filterObject[filterArray] = new RegExp(filterInput);
+    const employees = await EmployeeModel.find(filterObject).sort(sortObject);
+    console.log("no");
+    return res.json(employees);
+  }
+
   // console.log(filterObject);
-
-  const employees = await EmployeeModel.find().sort(sortObject);
-  return res.json(employees);
 });
 
 employeesRouter.get("/:id", (req, res) => {
