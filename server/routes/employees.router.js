@@ -26,6 +26,14 @@ employeesRouter.use("/:id", async (req, res, next) => {
 employeesRouter.get("/", async (req, res) => {
   const sortObject = {};
   sortObject[req.query.sort] = req.query.by;
+  // const filterArray = req.query.filter;
+  // const filterInput = req.query.filterInput;
+  // const filterObject = {};
+
+  // filterArray.forEach((element) => {
+  //   filterObject[element] = filterInput;
+  // });
+  // console.log(filterObject);
 
   const employees = await EmployeeModel.find().sort(sortObject);
   return res.json(employees);
