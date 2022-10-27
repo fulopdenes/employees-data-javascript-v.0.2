@@ -21,26 +21,22 @@ import {
 } from "@mui/material";
 
 import React, { useState } from "react";
-import { useTheme } from "@mui/material/styles";
 
 const EmployeeTable = ({
   sortStatus,
   setSortStatus,
-  employees, //! ezzel dolgozunk
+  employees,
   onDelete,
   selectedColumnStatus,
   setSelectedColumnStatus,
   sortByColumn,
-  sortColumn,
   setSortColumn,
-  personName,
-  setPersonName,
+  columnLabels,
+  setColumnLabels,
   searchInputHandler,
   setSearchInputHandler,
 }) => {
-  const [age, setAge] = useState("");
-  const [column, setColumn] = useState(["Name", "Level", "Position"]);
-  const [filterValueState, setFilterValueState] = useState("");
+  const column = ["Name", "Level", "Position"];
 
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
@@ -57,15 +53,12 @@ const EmployeeTable = ({
     const {
       target: { value },
     } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
-    console.log(value);
+    setColumnLabels(typeof value === "string" ? value.split(",") : value);
+
     if (value.length === 0) {
       setSearchInputHandler("");
     }
-    const map1 = value.map((x) => {
+    const queryLabel = value.map((x) => {
       if (x === "Name") {
         return "filter=name";
       } else if (x === "Level") {
@@ -76,7 +69,7 @@ const EmployeeTable = ({
         return "";
       }
     });
-    setSelectedColumnStatus(map1.join("&"));
+    setSelectedColumnStatus(queryLabel.join("&"));
   };
 
   return (
@@ -96,7 +89,7 @@ const EmployeeTable = ({
                     labelId="demo-multiple-checkbox-label"
                     id="demo-multiple-checkbox"
                     multiple
-                    value={personName}
+                    value={columnLabels}
                     variant="outlined"
                     onChange={handleChange}
                     input={<OutlinedInput label="Selected Column(s):" />}
@@ -105,7 +98,7 @@ const EmployeeTable = ({
                   >
                     {column.map((item) => (
                       <MenuItem key={item} value={item}>
-                        <Checkbox checked={personName.indexOf(item) > -1} />
+                        <Checkbox checked={columnLabels.indexOf(item) > -1} />
                         <ListItemText primary={item} />
                       </MenuItem>
                     ))}
@@ -138,8 +131,6 @@ const EmployeeTable = ({
               >
                 Name
               </TableCell>
-              {/* <TableCell align="left">Middle Name</TableCell>
-          <TableCell align="left">Last Name</TableCell> */}
               <TableCell
                 id="level"
                 onClick={(e) =>

@@ -20,7 +20,7 @@ const EmployeeList = () => {
   const [data, setData] = useState(null);
   const [searchInputHandler, setSearchInputHandler] = useState("");
 
-  const [personName, setPersonName] = useState([]);
+  const [columnLabels, setColumnLabels] = useState([]);
 
   useEffect(() => {
     handleSelectAndInput();
@@ -99,13 +99,12 @@ const EmployeeList = () => {
       setSortStatus={setSortStatus}
       sortByColumn={sortByColumn}
       setSortColumn={setSortColumn}
-      sortColumn={sortColumn}
       selectedColumnStatus={selectedColumnStatus}
       setSelectedColumnStatus={setSelectedColumnStatus}
       employees={data}
       onDelete={handleDelete}
-      personName={personName}
-      setPersonName={setPersonName}
+      columnLabels={columnLabels}
+      setColumnLabels={setColumnLabels}
       searchInputHandler={searchInputHandler}
       setSearchInputHandler={setSearchInputHandler}
     />

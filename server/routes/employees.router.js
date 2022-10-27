@@ -2,10 +2,7 @@ const { Router } = require("express");
 const EmployeeModel = require("../db/employee.model");
 
 const employeesRouter = new Router();
-employeesRouter.get("/valami", async (req, res) => {
-  console.log("sajt");
-  res.send("ok");
-});
+
 employeesRouter.use("/:id", async (req, res, next) => {
   let employee = null;
 
@@ -26,10 +23,10 @@ employeesRouter.use("/:id", async (req, res, next) => {
 employeesRouter.get("/", async (req, res) => {
   const sortObject = {};
   sortObject[req.query.sort] = req.query.by;
-  const filterArray = req.query.filter;
 
-  const filterInput = req.query.filterInput;
   const filterObject = {};
+  const filterArray = req.query.filter;
+  const filterInput = req.query.filterInput;
 
   if (Array.isArray(filterArray)) {
     filterArray.forEach((element) => {
@@ -42,8 +39,6 @@ employeesRouter.get("/", async (req, res) => {
     const employees = await EmployeeModel.find(filterObject).sort(sortObject);
     return res.json(employees);
   }
-
-  // console.log(filterObject);
 });
 
 employeesRouter.get("/:id", (req, res) => {
