@@ -36,12 +36,10 @@ employeesRouter.get("/", async (req, res) => {
       filterObject[element] = new RegExp(filterInput);
     });
     const employees = await EmployeeModel.find(filterObject).sort(sortObject);
-    console.log("yes");
     return res.json(employees);
   } else {
     filterObject[filterArray] = new RegExp(filterInput);
     const employees = await EmployeeModel.find(filterObject).sort(sortObject);
-    console.log("no");
     return res.json(employees);
   }
 

@@ -13,7 +13,7 @@ const deleteEmployee = (id) => {
 };
 
 const EmployeeList = () => {
-  const [selectedColumnStatus, setSelectedColumnStatus] = useState([]);
+  const [selectedColumnStatus, setSelectedColumnStatus] = useState("");
   const [sortColumn, setSortColumn] = useState("");
   const [sortStatus, setSortStatus] = useState("default");
   const [loading, setLoading] = useState(true);
@@ -24,7 +24,7 @@ const EmployeeList = () => {
 
   useEffect(() => {
     handleSelectAndInput();
-  }, [searchInputHandler]);
+  }, [searchInputHandler, selectedColumnStatus]);
 
   const handleSelectAndInput = () => {
     const query = selectedColumnStatus + "&filterInput=" + searchInputHandler;
@@ -106,6 +106,7 @@ const EmployeeList = () => {
       onDelete={handleDelete}
       personName={personName}
       setPersonName={setPersonName}
+      searchInputHandler={searchInputHandler}
       setSearchInputHandler={setSearchInputHandler}
     />
   );

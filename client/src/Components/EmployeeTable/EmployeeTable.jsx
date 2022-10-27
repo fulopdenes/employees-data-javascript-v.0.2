@@ -28,16 +28,19 @@ const EmployeeTable = ({
   setSortStatus,
   employees, //! ezzel dolgozunk
   onDelete,
+  selectedColumnStatus,
   setSelectedColumnStatus,
   sortByColumn,
   sortColumn,
   setSortColumn,
   personName,
   setPersonName,
+  searchInputHandler,
   setSearchInputHandler,
 }) => {
   const [age, setAge] = useState("");
   const [column, setColumn] = useState(["Name", "Level", "Position"]);
+  const [filterValueState, setFilterValueState] = useState("");
 
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
@@ -58,6 +61,10 @@ const EmployeeTable = ({
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
     );
+    console.log(value);
+    if (value.length === 0) {
+      setSearchInputHandler("");
+    }
     const map1 = value.map((x) => {
       if (x === "Name") {
         return "filter=name";
@@ -80,14 +87,19 @@ const EmployeeTable = ({
             <TableRow>
               <TableCell>
                 <FormControl sx={{ m: 1, width: 300 }}>
-                  <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel>
+                  <InputLabel id="demo-multiple-checkbox-label">
+                    {selectedColumnStatus !== ""
+                      ? "Selected Column(s):"
+                      : "Select Column(s)"}
+                  </InputLabel>
                   <Select
                     labelId="demo-multiple-checkbox-label"
                     id="demo-multiple-checkbox"
                     multiple
                     value={personName}
+                    variant="outlined"
                     onChange={handleChange}
-                    input={<OutlinedInput label="Tag" />}
+                    input={<OutlinedInput label="Selected Column(s):" />}
                     renderValue={(selected) => selected.join(", ")}
                     MenuProps={MenuProps}
                   >
@@ -103,10 +115,11 @@ const EmployeeTable = ({
               <TableCell>
                 <TextField
                   id="outlined-basic"
-                  label="Outlined"
+                  label="Search"
                   variant="outlined"
+                  disabled={selectedColumnStatus !== "" ? false : true}
                   onChange={(e) => setSearchInputHandler(e.target.value)}
-                  // margin="dense"
+                  value={searchInputHandler}
                 />
               </TableCell>
             </TableRow>
